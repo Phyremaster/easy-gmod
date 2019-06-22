@@ -33,17 +33,11 @@ RUN ${STEAMCMDDIR}/steamcmd.sh +login anonymous +force_install_dir ${CSSDIR} +ap
 RUN ${STEAMCMDDIR}/steamcmd.sh +login anonymous +force_install_dir ${TF2DIR} +app_update ${TF2ID} validate +quit
 
 # Mount other game content
-RUN echo "
-	\"mountcfg\"
-	{
-		\"cstrike\"	\"${CSSDIR}/cstrike\"
-		\"tf\"	\"${TF2DIR}/tf\"
-	}
-    " > ${MOUNTCFG}
+ADD mount.cfg $MOUNTCFG
 
 # Add autoupdate script
 WORKDIR ${GMODDIR}
-ADD autoupdatescript.txt .
+ADD autoupdatescript.txt ./
 
 # Start main script
 CMD ./easygmod.sh

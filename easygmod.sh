@@ -5,15 +5,6 @@ ${STEAMCMDDIR}/steamcmd.sh +login anonymous +force_install_dir ${GMODDIR} +app_u
 ${STEAMCMDDIR}/steamcmd.sh +login anonymous +force_install_dir ${CSSDIR} +app_update ${CSSID} validate +quit
 ${STEAMCMDDIR}/steamcmd.sh +login anonymous +force_install_dir ${TF2DIR} +app_update ${TF2ID} validate +quit
 
-# Re-mount other game content
-echo "
-	\"mountcfg\"
-	{
-		\"cstrike\"	\"${CSSDIR}/cstrike\"
-		\"tf\"	\"${TF2DIR}/tf\"
-	}
-    " > ${MOUNTCFG}
-
 # Edit server config file
 touch ${SERVERCFG}
 sed -i '/hostname/!{q1}; {s/hostname.*/hostname "'${HOSTNAME}'"/}' ${SERVERCFG} || echo "hostname \"${HOSTNAME}\"" >> ${SERVERCFG}
