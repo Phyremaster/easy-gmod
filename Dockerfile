@@ -25,13 +25,6 @@ ENV PASSWORD=""
 ENV RCONPASSWORD=""
 ENV LOGINTOKEN=""
 
-# Install Garry's Mod
-RUN ${STEAMCMDDIR}/steamcmd.sh +login anonymous +force_install_dir ${GMODDIR} +app_update ${GMODID} validate +quit
-
-# Install other game content
-RUN ${STEAMCMDDIR}/steamcmd.sh +login anonymous +force_install_dir ${CSSDIR} +app_update ${CSSID} validate +quit
-RUN ${STEAMCMDDIR}/steamcmd.sh +login anonymous +force_install_dir ${TF2DIR} +app_update ${TF2ID} validate +quit
-
 # Mount other game content
 ADD mount.cfg $MOUNTCFG
 
@@ -44,4 +37,4 @@ CMD ./easygmod.sh
 
 # Set up container
 EXPOSE 27015/tcp 27015/udp
-VOLUME ${GMODDIR}
+VOLUME ${GMODDIR} ${CSSDIR} ${TF2DIR}
