@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Update Garry's Mod
 ${STEAMCMDDIR}/steamcmd.sh +login anonymous +force_install_dir ${GMODDIR} +app_update ${GMODID} validate +quit
 
