@@ -29,7 +29,7 @@ ENV HOSTNAME="A Garry's Mod Server" \
 ADD mount.cfg $MOUNTCFG
 
 # Add autoupdate script
-ADD autoupdatescript.txt ${GMODDIR}
+ADD autoupdatescript.txt ${GMODDIR}/
 
 # Start main script
 ADD easygmod.sh ./
