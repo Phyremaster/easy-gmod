@@ -1,0 +1,10 @@
+@ShutdownOnFailedCommand 1
+@NoPromptForPassword 1
+login anonymous
+force_install_dir ${GMODDIR}
+app_update ${GMODID}
+force_install_dir ${CSSDIR}
+app_update ${CSSID}
+force_install_dir ${TF2DIR}
+app_update ${TF2ID}
+quit
