@@ -2,37 +2,37 @@
 FROM cm2network/steamcmd
 
 # DO NOT OVERRIDE THESE
-ENV GMODID=4020
-ENV GMODDIR=/home/steam/garrysmod
-ENV CSSID=232330
-ENV CSSDIR=/home/steam/css
-ENV TF2ID=232250
-ENV TF2DIR=/home/steam/tf2
-ENV SERVERCFG=${GMODDIR}/garrysmod/cfg/server.cfg
-ENV MOUNTCFG=${GMODDIR}/garrysmod/cfg/mount.cfg
+ENV GMODID=4020 \
+	GMODDIR=/home/steam/garrysmod \
+	CSSID=232330 \
+	CSSDIR=/home/steam/css \
+	TF2ID=232250 \
+	TF2DIR=/home/steam/tf2 \
+	SERVERCFG=${GMODDIR}/garrysmod/cfg/server.cfg \
+	MOUNTCFG=${GMODDIR}/garrysmod/cfg/mount.cfg
 
 # Environment variables
-ENV HOSTNAME="A Garry's Mod Server"
-ENV MAXPLAYERS=20
-ENV GAMEMODE=sandbox
-ENV GAMEMAP=gm_flatgrass
-ENV ALLTALK=0
-ENV MAXFILESIZE=1024
-ENV WORKSHOPID=""
-ENV DOWNLOADURL=""
-ENV LOADINGURL=""
-ENV PASSWORD=""
-ENV RCONPASSWORD=""
-ENV LOGINTOKEN=""
+ENV HOSTNAME="A Garry's Mod Server" \
+	MAXPLAYERS=20 \
+	GAMEMODE=sandbox \
+	GAMEMAP=gm_flatgrass \
+	ALLTALK=0 \
+	MAXFILESIZE=1024 \
+	WORKSHOPID="" \
+	DOWNLOADURL="" \
+	LOADINGURL="" \
+	PASSWORD="" \
+	RCONPASSWORD="" \
+	LOGINTOKEN=""
 
 # Mount other game content
 ADD mount.cfg $MOUNTCFG
 
 # Add autoupdate script
-WORKDIR ${GMODDIR}
-ADD autoupdatescript.txt ./
+ADD autoupdatescript.txt ${GMODDIR}
 
 # Start main script
+ADD easygmod.sh
 CMD ./easygmod.sh
 
 # Set up container
