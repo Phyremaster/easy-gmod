@@ -33,6 +33,7 @@ ADD autoupdatescript.txt ${GMODDIR}/
 
 # Start main script
 ADD easygmod.sh ./
+RUN chmod +x ./easygmod.sh
 CMD ./easygmod.sh
 
 # Set up container
