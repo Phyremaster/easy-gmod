@@ -32,7 +32,7 @@ ADD mount.cfg $MOUNTCFG
 ADD autoupdatescript.txt ${GMODDIR}
 
 # Start main script
-ADD easygmod.sh
+ADD easygmod.sh ./
 CMD ./easygmod.sh
 
 # Set up container
