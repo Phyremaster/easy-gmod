@@ -33,7 +33,7 @@ ADD --chown=steam autoupdatescript.txt ${GMODDIR}/
 
 # Start main script
 ADD --chown=steam easygmod.sh .
-RUN chmod +x easygmod.sh
+RUN chmod a+rx easygmod.sh
 USER steam
 CMD ./easygmod.sh
 
