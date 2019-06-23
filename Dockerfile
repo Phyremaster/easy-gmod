@@ -32,9 +32,9 @@ ADD mount.cfg $MOUNTCFG
 ADD autoupdatescript.txt ${GMODDIR}/
 
 # Start main script
-ADD easygmod.sh ./
+ADD easygmod.sh .
 USER root
-RUN chmod +x ./easygmod.sh
+RUN chmod +x easygmod.sh
 USER steam
 CMD ./easygmod.sh
 
