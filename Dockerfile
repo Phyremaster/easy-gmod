@@ -33,9 +33,8 @@ ADD autoupdatescript.txt ${GMODDIR}/
 
 # Start main script
 ADD easygmod.sh .
-#USER root
-#RUN chmod +x easygmod.sh
-#USER steam
+RUN chmod +x easygmod.sh
+USER steam
 CMD ./easygmod.sh
 
 # Set up container
