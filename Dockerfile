@@ -32,7 +32,7 @@ ADD --chown=steam mount.cfg $MOUNTCFG
 ADD --chown=steam autoupdatescript.txt ${GMODDIR}/
 
 # Start main script
-ADD --chown=steam easygmod.sh .
+ADD --chown=steam easygmod.sh /home/steam/
 RUN chmod a+rx easygmod.sh
 USER steam
 CMD ./easygmod.sh
