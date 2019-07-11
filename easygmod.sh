@@ -7,7 +7,8 @@ ${STEAMCMDDIR}/steamcmd.sh +login anonymous +force_install_dir ${GMODDIR} +app_u
 ${STEAMCMDDIR}/steamcmd.sh +login anonymous +force_install_dir ${CSSDIR} +app_update ${CSSID} validate +quit
 ${STEAMCMDDIR}/steamcmd.sh +login anonymous +force_install_dir ${TF2DIR} +app_update ${TF2ID} validate +quit
 
-
+# Mount other game content
+cp mount.cfg ${MOUNTCFG}
 
 # Edit server config file
 touch ${SERVERCFG}
@@ -42,8 +43,6 @@ then
 fi
 sed -i '/exec banned_ip.cfg/!{q1}' ${SERVERCFG} || {echo "exec banned_ip.cfg" >> ${SERVERCFG}}
 sed -i '/exec banned_user.cfg/!{q1}' ${SERVERCFG} || {echo "exec banned_user.cfg" >> ${SERVERCFG}}
-
-
 
 # Start the server
 exec ${GMODDIR}/srcds_run -autoupdate -steam_dir ${STEAMCMDDIR} -steamcmd_script /home/steam/autoupdatescript.txt -port 27015 -maxplayers ${MAXPLAYERS} -game garrysmod +gamemode ${GAMEMODE} +map ${GAMEMAP}

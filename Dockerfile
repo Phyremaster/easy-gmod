@@ -25,16 +25,14 @@ ENV HOSTNAME="A Garry's Mod Server" \
 	RCONPASSWORD="" \
 	LOGINTOKEN=""
 
-# Mount other game content
-ADD --chown=steam mount.cfg $MOUNTCFG
-
-# Add autoupdate script
-ADD --chown=steam autoupdatescript.txt /home/steam/autoupdatescript.txt
-
-# Start main script
+# Add files
 WORKDIR /home/steam/
+ADD --chown=steam mount.cfg .
+ADD --chown=steam autoupdatescript.txt .
 ADD --chown=steam easygmod.sh .
 RUN chmod a+rx easygmod.sh
+
+# Start main script
 USER steam
 CMD ./easygmod.sh
 
