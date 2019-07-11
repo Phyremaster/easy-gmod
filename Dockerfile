@@ -29,7 +29,7 @@ ENV HOSTNAME="A Garry's Mod Server" \
 ADD --chown=steam mount.cfg $MOUNTCFG
 
 # Add autoupdate script
-ADD --chown=steam autoupdatescript.txt ${GMODDIR}/autoupdatescript.txt
+ADD --chown=steam autoupdatescript.txt /home/steam/autoupdatescript.txt
 
 # Start main script
 WORKDIR /home/steam/

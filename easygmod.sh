@@ -46,4 +46,4 @@ sed -i '/exec banned_user.cfg/!{q1}' ${SERVERCFG} || {echo "exec banned_user.cfg
 
 
 # Start the server
-exec ${GMODDIR}/srcds_run -autoupdate -steam_dir ${STEAMCMDDIR} -steamcmd_script ${GMODDIR}/autoupdatescript.txt -port 27015 -maxplayers ${MAXPLAYERS} -game garrysmod +gamemode ${GAMEMODE} +map ${GAMEMAP}
+exec ${GMODDIR}/srcds_run -autoupdate -steam_dir ${STEAMCMDDIR} -steamcmd_script /home/steam/autoupdatescript.txt -port 27015 -maxplayers ${MAXPLAYERS} -game garrysmod +gamemode ${GAMEMODE} +map ${GAMEMAP}
