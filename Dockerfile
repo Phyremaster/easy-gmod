@@ -34,8 +34,6 @@ ADD --chown=steam autoupdatescript.txt ${GMODDIR}/
 # Start main script
 WORKDIR /home/steam/
 ADD --chown=steam easygmod.sh .
-RUN apt-get install dos2unix
-RUN dos2unix easygmod.sh
 RUN chmod a+rx easygmod.sh
 USER steam
 CMD ./easygmod.sh
