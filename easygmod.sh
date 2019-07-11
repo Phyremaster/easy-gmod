@@ -9,7 +9,7 @@ ${STEAMCMDDIR}/steamcmd.sh +login anonymous +force_install_dir ${TF2DIR} +app_up
 
 # Edit server config file
 touch ${SERVERCFG}
-sed -i '/hostname/!{q1}; {s/hostname.*/hostname "'${HOSTNAME}'"/}' ${SERVERCFG} || echo "hostname \"${HOSTNAME}\"" >> ${SERVERCFG}
+sed -i '/hostname/!{q1}; {s/hostname.*/hostname "'"${HOSTNAME}"'"/}' ${SERVERCFG} || echo "hostname \"${HOSTNAME}\"" >> ${SERVERCFG}
 sed -i '/sv_alltalk/!{q1}; {s/sv_alltalk.*/sv_alltalk '${ALLTALK}'/}' ${SERVERCFG} || echo "sv_alltalk ${ALLTALK}" >> ${SERVERCFG}
 sed -i '/net_maxfilesize/!{q1}; {s/net_maxfilesize.*/net_maxfilesize '${MAXFILESIZE}'/}' ${SERVERCFG} || echo "net_maxfilesize ${MAXFILESIZE}" >> ${SERVERCFG}
 if [ ! -z ${WORKSHOPID} ] then
