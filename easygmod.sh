@@ -41,9 +41,8 @@ if [ ! -z ${LOGINTOKEN} ]
 then
     sed -i '/sv_setsteamaccount/!{q1}; {s/sv_setsteamaccount.*/sv_setsteamaccount "'${LOGINTOKEN}'"/}' ${SERVERCFG} || { echo "sv_setsteamaccount \"${LOGINTOKEN}\"" >> ${SERVERCFG}; }
 fi
-sed -i '/exec banned_ip.cfg/!{q1}' ${SERVERCFG} || { echo "exec banned_ip.cfg" >> ${SERVERCFG}; }
+# sed -i '/exec banned_ip.cfg/!{q1}' ${SERVERCFG} || { echo "exec banned_ip.cfg" >> ${SERVERCFG}; }
 # sed -i '/exec banned_user.cfg/!{q1}' ${SERVERCFG} || { echo "exec banned_user.cfg" >> ${SERVERCFG}; }
-echo "exec banned_user.cfg" >> ${SERVERCFG}
 
 # Start the server
 exec ${GMODDIR}/srcds_run -autoupdate -steam_dir ${STEAMCMDDIR} -steamcmd_script /home/steam/autoupdatescript.txt -port 27015 -maxplayers ${MAXPLAYERS} -game garrysmod +gamemode ${GAMEMODE} +map ${GAMEMAP}
