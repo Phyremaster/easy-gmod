@@ -7,8 +7,8 @@ ENV GMODID=4020 \
 	CSSID=232330 \
 	CSSDIR=/home/steam/css \
 	TF2ID=232250 \
-	TF2DIR=/home/steam/tf2 \
-	SERVERCFG=${GMODDIR}/garrysmod/cfg/server.cfg \
+	TF2DIR=/home/steam/tf2
+ENV SERVERCFG=${GMODDIR}/garrysmod/cfg/server.cfg \
 	MOUNTCFG=${GMODDIR}/garrysmod/cfg/mount.cfg
 
 # Environment variables
