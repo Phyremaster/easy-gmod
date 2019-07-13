@@ -27,9 +27,8 @@ ENV HOSTNAME="A Garry's Mod Server" \
 
 # Add files
 WORKDIR /home/steam/
-ADD --chown=steam mount.cfg .
-ADD --chown=steam autoupdatescript.txt .
-ADD --chown=steam easygmod.sh .
+COPY --chown=steam mount.cfg autoupdatescript.txt ./
+COPY --chown=steam easygmod.sh .
 RUN chmod a+rx easygmod.sh
 
 # Start main script

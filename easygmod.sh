@@ -10,15 +10,15 @@ ${STEAMCMDDIR}/steamcmd.sh +login anonymous +force_install_dir ${TF2DIR} +app_up
 # Mount other game content
 if [ -f "${MOUNTCFG}" ]
 then
-    if ! grep -q '"cstrike"\s"/home/steam/css/cstrike"' ${MOUNTCFG}
+    if ! grep -q '"cstrike"\s"'"${CSSDIR}"'/cstrike"' ${MOUNTCFG}
     then
         sed -i '/"cstrike"/d' ${MOUNTCFG}
-        sed -i '/}/ i 	"cstrike"	"/home/steam/css/cstrike"' ${MOUNTCFG}
+        sed -i '/\n\s}\s\n/ i 	"cstrike"	"'"${CSSDIR}"'/cstrike"' ${MOUNTCFG}
     fi
-    if ! grep -q '"tf"\s"/home/steam/tf2/tf"' ${MOUNTCFG}
+    if ! grep -q '"tf"\s"'"${TF2DIR}"'/tf"' ${MOUNTCFG}
     then
         sed -i '/"tf"/d' ${MOUNTCFG}
-        sed -i '/}/ i 	"tf"	"/home/steam/tf2/tf"' ${MOUNTCFG}
+        sed -i '/\n\s}\s\n/ i 	"tf"	"'"${TF2DIR}"'/tf"' ${MOUNTCFG}
     fi
 else
     cp mount.cfg ${MOUNTCFG}
@@ -26,7 +26,7 @@ fi
 
 # Edit server config file
 touch ${SERVERCFG}
-if [ ! -z ${HOSTNAME} ]
+if [ ! -z "${HOSTNAME}" ]
 then
     if grep -q 'hostname' ${SERVERCFG}
     then
@@ -35,7 +35,7 @@ then
         echo "hostname \"${HOSTNAME}\"" >> ${SERVERCFG}
     fi
 fi
-if [ ! -z ${ALLTALK} ]
+if [ ! -z "${ALLTALK}" ]
 then
     if grep -q 'sv_alltalk' ${SERVERCFG}
     then
@@ -44,7 +44,7 @@ then
         echo "sv_alltalk ${ALLTALK}" >> ${SERVERCFG}
     fi
 fi
-if [ ! -z ${MAXFILESIZE} ]
+if [ ! -z "${MAXFILESIZE}" ]
 then
     if grep -q 'net_maxfilesize' ${SERVERCFG}
     then
@@ -53,20 +53,20 @@ then
         echo "net_maxfilesize ${MAXFILESIZE}" >> ${SERVERCFG}
     fi
 fi
-if [ ! -z ${WORKSHOPID} ]
+if [ ! -z "${WORKSHOPID}" ]
 then
     if grep -q 'host_workshop_collection' ${SERVERCFG}
     then
-        sed -i 's`host_workshop_collection.*`host_workshop_collection '${WORKSHOPID}'`' ${SERVERCFG}
+        sed -i 's`host_workshop_collection.*`host_workshop_collection '"${WORKSHOPID}"'`' ${SERVERCFG}
     else
         echo "host_workshop_collection ${WORKSHOPID}" >> ${SERVERCFG}
     fi
 fi
-if [ ! -z ${DOWNLOADURL} ]
+if [ ! -z "${DOWNLOADURL}" ]
 then
     if grep -q 'sv_downloadurl' ${SERVERCFG}
     then
-        sed -i 's`sv_downloadurl.*`sv_downloadurl "'${DOWNLOADURL}'"`' ${SERVERCFG}
+        sed -i 's`sv_downloadurl.*`sv_downloadurl "'"${DOWNLOADURL}"'"`' ${SERVERCFG}
     else
         echo "sv_downloadurl \"${DOWNLOADURL}\"" >> ${SERVERCFG}
     fi
@@ -83,38 +83,38 @@ then
         echo "sv_allowupload 1" >> ${SERVERCFG}
     fi
 fi
-if [ ! -z ${LOADINGURL} ]
+if [ ! -z "${LOADINGURL}" ]
 then
     if grep -q 'sv_loadingurl' ${SERVERCFG}
     then
-        sed -i 's`sv_loadingurl.*`sv_loadingurl "'${LOADINGURL}'"`' ${SERVERCFG}
+        sed -i 's`sv_loadingurl.*`sv_loadingurl "'"${LOADINGURL}"'"`' ${SERVERCFG}
     else
         echo "sv_loadingurl \"${LOADINGURL}\"" >> ${SERVERCFG}
     fi
 fi
-if [ ! -z ${PASSWORD} ]
+if [ ! -z "${PASSWORD}" ]
 then
     if grep -q 'sv_password' ${SERVERCFG}
     then
-        sed -i 's`sv_password.*`sv_password "'${PASSWORD}'"`' ${SERVERCFG}
+        sed -i 's`sv_password.*`sv_password "'"${PASSWORD}"'"`' ${SERVERCFG}
     else
         echo "sv_password \"${PASSWORD}\"" >> ${SERVERCFG}
     fi
 fi
-if [ ! -z ${RCONPASSWORD} ]
+if [ ! -z "${RCONPASSWORD}" ]
 then
     if grep -q 'rcon_password' ${SERVERCFG}
     then
-        sed -i 's`rcon_password.*`rcon_password "'${RCONPASSWORD}'"`' ${SERVERCFG}
+        sed -i 's`rcon_password.*`rcon_password "'"${RCONPASSWORD}"'"`' ${SERVERCFG}
     else
         echo "rcon_password \"${RCONPASSWORD}\"" >> ${SERVERCFG}
     fi
 fi
-if [ ! -z ${LOGINTOKEN} ]
+if [ ! -z "${LOGINTOKEN}" ]
 then
     if grep -q 'sv_setsteamaccount' ${SERVERCFG}
     then
-        sed -i 's`sv_setsteamaccount.*`sv_setsteamaccount "'${LOGINTOKEN}'"`' ${SERVERCFG}
+        sed -i 's`sv_setsteamaccount.*`sv_setsteamaccount "'"${LOGINTOKEN}"'"`' ${SERVERCFG}
     else
         echo "sv_setsteamaccount \"${LOGINTOKEN}\"" >> ${SERVERCFG}
     fi
