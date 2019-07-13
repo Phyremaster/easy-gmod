@@ -13,12 +13,12 @@ then
     if ! grep -q '"cstrike"\s"'"${CSSDIR}"'/cstrike"' ${MOUNTCFG}
     then
         sed -i '/"cstrike"/d' ${MOUNTCFG}
-        sed -i '/\n\s}\s\n/ i 	"cstrike"	"'"${CSSDIR}"'/cstrike"' ${MOUNTCFG}
+        sed -i '/\n\s*}/ i 	"cstrike"	"'"${CSSDIR}"'/cstrike"' ${MOUNTCFG}
     fi
     if ! grep -q '"tf"\s"'"${TF2DIR}"'/tf"' ${MOUNTCFG}
     then
         sed -i '/"tf"/d' ${MOUNTCFG}
-        sed -i '/\n\s}\s\n/ i 	"tf"	"'"${TF2DIR}"'/tf"' ${MOUNTCFG}
+        sed -i '/\n\s*}/ i 	"tf"	"'"${TF2DIR}"'/tf"' ${MOUNTCFG}
     fi
 else
     cp mount.cfg ${MOUNTCFG}
