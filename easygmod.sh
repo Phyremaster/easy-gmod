@@ -8,33 +8,53 @@ ${STEAMCMDDIR}/steamcmd.sh +login anonymous +force_install_dir ${CSSDIR} +app_up
 ${STEAMCMDDIR}/steamcmd.sh +login anonymous +force_install_dir ${TF2DIR} +app_update ${TF2ID} validate +quit
 
 # Mount other game content
-cp mount.cfg ${MOUNTCFG}
+if [ -f "${MOUNTCFG}" ]
+then
+    if ! grep -q '"cstrike"\s"/home/steam/css/cstrike"' ${MOUNTCFG}
+    then
+        sed -i '/"cstrike"/d' ${MOUNTCFG}
+        sed -i '/}/ i 	"cstrike"	"/home/steam/css/cstrike"' ${MOUNTCFG}
+    fi
+    if ! grep -q '"tf"\s"/home/steam/tf2/tf"' ${MOUNTCFG}
+    then
+        sed -i '/"tf"/d' ${MOUNTCFG}
+        sed -i '/}/ i 	"tf"	"/home/steam/tf2/tf"'
+    fi
+else
+    cp mount.cfg ${MOUNTCFG}
+fi
 
 # Edit server config file
 touch ${SERVERCFG}
-if grep -q 'hostname' ${SERVERCFG}
-then
-    sed -i 's/hostname.*/hostname "'"${HOSTNAME}"'"/' ${SERVERCFG}
-else
-    echo "hostname \"${HOSTNAME}\"" >> ${SERVERCFG}
+if [ ! -z ${HOSTNAME} ]
+    if grep -q 'hostname' ${SERVERCFG}
+    then
+        sed -i 's`hostname.*`hostname "'"${HOSTNAME}"'"`' ${SERVERCFG}
+    else
+        echo "hostname \"${HOSTNAME}\"" >> ${SERVERCFG}
+    fi
 fi
-if grep -q 'sv_alltalk' ${SERVERCFG}
-then
-    sed -i 's/sv_alltalk.*/sv_alltalk '${ALLTALK}'/' ${SERVERCFG}
-else
-    echo "sv_alltalk ${ALLTALK}" >> ${SERVERCFG}
+if [ ! -z ${ALLTALK} ]
+    if grep -q 'sv_alltalk' ${SERVERCFG}
+    then
+        sed -i 's`sv_alltalk.*`sv_alltalk '${ALLTALK}'`' ${SERVERCFG}
+    else
+        echo "sv_alltalk ${ALLTALK}" >> ${SERVERCFG}
+    fi
 fi
-if grep -q 'net_maxfilesize' ${SERVERCFG}
-then
-    sed -i 's/net_maxfilesize.*/net_maxfilesize '${MAXFILESIZE}'/' ${SERVERCFG}
-else
-    echo "net_maxfilesize ${MAXFILESIZE}" >> ${SERVERCFG}
+if [ ! -z ${MAXFILESIZE} ]
+    if grep -q 'net_maxfilesize' ${SERVERCFG}
+    then
+        sed -i 's`net_maxfilesize.*`net_maxfilesize '${MAXFILESIZE}'`' ${SERVERCFG}
+    else
+        echo "net_maxfilesize ${MAXFILESIZE}" >> ${SERVERCFG}
+    fi
 fi
 if [ ! -z ${WORKSHOPID} ]
 then
     if grep -q 'host_workshop_collection' ${SERVERCFG}
     then
-        sed -i 's/host_workshop_collection.*/host_workshop_collection '${WORKSHOPID}'/' ${SERVERCFG}
+        sed -i 's`host_workshop_collection.*`host_workshop_collection '${WORKSHOPID}'`' ${SERVERCFG}
     else
         echo "host_workshop_collection ${WORKSHOPID}" >> ${SERVERCFG}
     fi
@@ -43,19 +63,19 @@ if [ ! -z ${DOWNLOADURL} ]
 then
     if grep -q 'sv_downloadurl' ${SERVERCFG}
     then
-        sed -i 's/sv_downloadurl.*/sv_downloadurl "'${DOWNLOADURL}'"/' ${SERVERCFG}
+        sed -i 's`sv_downloadurl.*`sv_downloadurl "'${DOWNLOADURL}'"`' ${SERVERCFG}
     else
         echo "sv_downloadurl \"${DOWNLOADURL}\"" >> ${SERVERCFG}
     fi
     if grep -q 'sv_allowdownload' ${SERVERCFG}
     then
-        sed -i 's/sv_allowdownload.*/sv_allowdownload 1/' ${SERVERCFG}
+        sed -i 's`sv_allowdownload.*`sv_allowdownload 1`' ${SERVERCFG}
     else
         echo "sv_allowdownload 1" >> ${SERVERCFG}
     fi
     if grep -q 'sv_allowupload' ${SERVERCFG}
     then
-        sed -i 's/sv_allowupload.*/sv_allowupload 1/' ${SERVERCFG}
+        sed -i 's`sv_allowupload.*`sv_allowupload 1`' ${SERVERCFG}
     else
         echo "sv_allowupload 1" >> ${SERVERCFG}
     fi
@@ -64,7 +84,7 @@ if [ ! -z ${LOADINGURL} ]
 then
     if grep -q 'sv_loadingurl' ${SERVERCFG}
     then
-        sed -i 's/sv_loadingurl.*/sv_loadingurl "'${LOADINGURL}'"/' ${SERVERCFG}
+        sed -i 's`sv_loadingurl.*`sv_loadingurl "'${LOADINGURL}'"`' ${SERVERCFG}
     else
         echo "sv_loadingurl \"${LOADINGURL}\"" >> ${SERVERCFG}
     fi
@@ -73,7 +93,7 @@ if [ ! -z ${PASSWORD} ]
 then
     if grep -q 'sv_password' ${SERVERCFG}
     then
-        sed -i 's/sv_password.*/sv_password "'${PASSWORD}'"/' ${SERVERCFG}
+        sed -i 's`sv_password.*`sv_password "'${PASSWORD}'"`' ${SERVERCFG}
     else
         echo "sv_password \"${PASSWORD}\"" >> ${SERVERCFG}
     fi
@@ -82,7 +102,7 @@ if [ ! -z ${RCONPASSWORD} ]
 then
     if grep -q 'rcon_password' ${SERVERCFG}
     then
-        sed -i 's/rcon_password.*/rcon_password "'${RCONPASSWORD}'"/' ${SERVERCFG}
+        sed -i 's`rcon_password.*`rcon_password "'${RCONPASSWORD}'"`' ${SERVERCFG}
     else
         echo "rcon_password \"${RCONPASSWORD}\"" >> ${SERVERCFG}
     fi
@@ -91,7 +111,7 @@ if [ ! -z ${LOGINTOKEN} ]
 then
     if grep -q 'sv_setsteamaccount' ${SERVERCFG}
     then
-        sed -i 's/sv_setsteamaccount.*/sv_setsteamaccount "'${LOGINTOKEN}'"/' ${SERVERCFG}
+        sed -i 's`sv_setsteamaccount.*`sv_setsteamaccount "'${LOGINTOKEN}'"`' ${SERVERCFG}
     else
         echo "sv_setsteamaccount \"${LOGINTOKEN}\"" >> ${SERVERCFG}
     fi
