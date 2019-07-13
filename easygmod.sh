@@ -18,7 +18,7 @@ then
     if ! grep -q '"tf"\s"/home/steam/tf2/tf"' ${MOUNTCFG}
     then
         sed -i '/"tf"/d' ${MOUNTCFG}
-        sed -i '/}/ i 	"tf"	"/home/steam/tf2/tf"'
+        sed -i '/}/ i 	"tf"	"/home/steam/tf2/tf"' ${MOUNTCFG}
     fi
 else
     cp mount.cfg ${MOUNTCFG}
@@ -27,6 +27,7 @@ fi
 # Edit server config file
 touch ${SERVERCFG}
 if [ ! -z ${HOSTNAME} ]
+then
     if grep -q 'hostname' ${SERVERCFG}
     then
         sed -i 's`hostname.*`hostname "'"${HOSTNAME}"'"`' ${SERVERCFG}
@@ -35,6 +36,7 @@ if [ ! -z ${HOSTNAME} ]
     fi
 fi
 if [ ! -z ${ALLTALK} ]
+then
     if grep -q 'sv_alltalk' ${SERVERCFG}
     then
         sed -i 's`sv_alltalk.*`sv_alltalk '${ALLTALK}'`' ${SERVERCFG}
@@ -43,6 +45,7 @@ if [ ! -z ${ALLTALK} ]
     fi
 fi
 if [ ! -z ${MAXFILESIZE} ]
+then
     if grep -q 'net_maxfilesize' ${SERVERCFG}
     then
         sed -i 's`net_maxfilesize.*`net_maxfilesize '${MAXFILESIZE}'`' ${SERVERCFG}
