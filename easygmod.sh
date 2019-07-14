@@ -53,15 +53,6 @@ then
         echo "net_maxfilesize ${MAXFILESIZE}" >> ${SERVERCFG}
     fi
 fi
-if [ ! -z "${WORKSHOPID}" ]
-then
-    if grep -q 'host_workshop_collection' ${SERVERCFG}
-    then
-        sed -i 's`host_workshop_collection.*`host_workshop_collection '"${WORKSHOPID}"'`' ${SERVERCFG}
-    else
-        echo "host_workshop_collection ${WORKSHOPID}" >> ${SERVERCFG}
-    fi
-fi
 if [ ! -z "${DOWNLOADURL}" ]
 then
     if grep -q 'sv_downloadurl' ${SERVERCFG}
@@ -129,4 +120,9 @@ then
 fi
 
 # Start the server
-exec ${GMODDIR}/srcds_run -autoupdate -steam_dir ${STEAMCMDDIR} -steamcmd_script /home/steam/autoupdatescript.txt -port 27015 -maxplayers ${MAXPLAYERS} -game garrysmod +gamemode ${GAMEMODE} +map ${GAMEMAP}
+if [ -z "${WORKSHOPID}" ]
+then
+    exec ${GMODDIR}/srcds_run -autoupdate -steam_dir ${STEAMCMDDIR} -steamcmd_script /home/steam/autoupdatescript.txt -port 27015 -maxplayers ${MAXPLAYERS} -game garrysmod +gamemode ${GAMEMODE} +map ${GAMEMAP}
+else
+    exec ${GMODDIR}/srcds_run -autoupdate -steam_dir ${STEAMCMDDIR} -steamcmd_script /home/steam/autoupdatescript.txt -port 27015 -maxplayers ${MAXPLAYERS} -game garrysmod +gamemode ${GAMEMODE} +map ${GAMEMAP} +host_workshop_collection ${WORKSHOPID}
+fi
