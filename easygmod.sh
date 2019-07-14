@@ -1,11 +1,14 @@
 #!/bin/sh
 
 # Update Garry's Mod
-${STEAMCMDDIR}/steamcmd.sh +login anonymous +force_install_dir ${GMODDIR} +app_update ${GMODID} validate +quit
+${STEAMCMDDIR}/steamcmd.sh +login anonymous \
+    +force_install_dir ${GMODDIR} +app_update ${GMODID} validate +quit
 
 # Update other game content
-${STEAMCMDDIR}/steamcmd.sh +login anonymous +force_install_dir ${CSSDIR} +app_update ${CSSID} validate +quit
-${STEAMCMDDIR}/steamcmd.sh +login anonymous +force_install_dir ${TF2DIR} +app_update ${TF2ID} validate +quit
+${STEAMCMDDIR}/steamcmd.sh +login anonymous \
+    +force_install_dir ${CSSDIR} +app_update ${CSSID} validate +quit
+${STEAMCMDDIR}/steamcmd.sh +login anonymous \
+    +force_install_dir ${TF2DIR} +app_update ${TF2ID} validate +quit
 
 # Mount other game content
 if [ -f "${MOUNTCFG}" ]
@@ -101,15 +104,6 @@ then
         echo "rcon_password \"${RCONPASSWORD}\"" >> ${SERVERCFG}
     fi
 fi
-if [ ! -z "${LOGINTOKEN}" ]
-then
-    if grep -q 'sv_setsteamaccount' ${SERVERCFG}
-    then
-        sed -i 's`sv_setsteamaccount.*`sv_setsteamaccount "'"${LOGINTOKEN}"'"`' ${SERVERCFG}
-    else
-        echo "sv_setsteamaccount \"${LOGINTOKEN}\"" >> ${SERVERCFG}
-    fi
-fi
 if ! grep -q 'exec banned_ip.cfg' ${SERVERCFG}
 then
     echo "exec banned_ip.cfg" >> ${SERVERCFG}
@@ -134,7 +128,52 @@ then
 fi
 if [ -z "${WORKSHOPID}" ]
 then
-    exec ${GMODDIR}/srcds_run -autoupdate -steam_dir ${STEAMCMDDIR} -steamcmd_script /home/steam/autoupdatescript.txt -port 27015 -maxplayers ${MAXPLAYERS} -game garrysmod +gamemode ${GAMEMODE} +map ${GAMEMAP}
+    if [ -z "${LOGINTOKEN}" ]
+    then
+        exec ${GMODDIR}/srcds_run \
+            -autoupdate \
+            -steam_dir ${STEAMCMDDIR} \
+            -steamcmd_script /home/steam/autoupdatescript.txt \
+            -port 27015 \
+            -maxplayers ${MAXPLAYERS} \
+            -game garrysmod \
+            +gamemode ${GAMEMODE} \
+            +map ${GAMEMAP}
+    else
+        exec ${GMODDIR}/srcds_run \
+            -autoupdate \
+            -steam_dir ${STEAMCMDDIR} \
+            -steamcmd_script /home/steam/autoupdatescript.txt \
+            -port 27015 -maxplayers ${MAXPLAYERS} \
+            -game garrysmod \
+            +sv_setsteamaccount ${LOGINTOKEN} \
+            +gamemode ${GAMEMODE} \
+            +map ${GAMEMAP}
+    fi
 else
-    exec ${GMODDIR}/srcds_run -autoupdate -steam_dir ${STEAMCMDDIR} -steamcmd_script /home/steam/autoupdatescript.txt -port 27015 -maxplayers ${MAXPLAYERS} -game garrysmod +host_workshop_collection ${WORKSHOPID} +gamemode ${GAMEMODE} +map ${GAMEMAP}
+    if [ -z "${LOGINTOKEN}" ]
+    then
+        exec ${GMODDIR}/srcds_run \
+            -autoupdate \
+            -steam_dir ${STEAMCMDDIR} \
+            -steamcmd_script /home/steam/autoupdatescript.txt \
+            -port 27015 \
+            -maxplayers ${MAXPLAYERS} \
+            -game garrysmod \
+            +host_workshop_collection ${WORKSHOPID} \
+            +gamemode ${GAMEMODE} \
+            +map ${GAMEMAP}
+    else
+        exec ${GMODDIR}/srcds_run \
+            -autoupdate \
+            -steam_dir ${STEAMCMDDIR} \
+            -steamcmd_script /home/steam/autoupdatescript.txt \
+            -port 27015 \
+            -maxplayers ${MAXPLAYERS} \
+            -game garrysmod \
+            +sv_setsteamaccount ${LOGINTOKEN} \
+            +host_workshop_collection ${WORKSHOPID} \
+            +gamemode ${GAMEMODE} \
+            +map ${GAMEMAP}
+    fi
 fi
