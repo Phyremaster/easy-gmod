@@ -120,9 +120,21 @@ then
 fi
 
 # Start the server
+if [ -z "${MAXPLAYERS}" ]
+then
+    MAXPLAYERS=20
+fi
+if [ -z "${GAMEMODE}" ]
+then
+    GAMEMODE=sandbox
+fi
+if [ -z "${GAMEMAP}" ]
+then
+    GAMEMAP=gm_flatgrass
+fi
 if [ -z "${WORKSHOPID}" ]
 then
     exec ${GMODDIR}/srcds_run -autoupdate -steam_dir ${STEAMCMDDIR} -steamcmd_script /home/steam/autoupdatescript.txt -port 27015 -maxplayers ${MAXPLAYERS} -game garrysmod +gamemode ${GAMEMODE} +map ${GAMEMAP}
 else
-    exec ${GMODDIR}/srcds_run -autoupdate -steam_dir ${STEAMCMDDIR} -steamcmd_script /home/steam/autoupdatescript.txt -port 27015 -maxplayers ${MAXPLAYERS} -game garrysmod +gamemode ${GAMEMODE} +map ${GAMEMAP} +host_workshop_collection ${WORKSHOPID}
+    exec ${GMODDIR}/srcds_run -autoupdate -steam_dir ${STEAMCMDDIR} -steamcmd_script /home/steam/autoupdatescript.txt -port 27015 -maxplayers ${MAXPLAYERS} -game garrysmod +host_workshop_collection ${WORKSHOPID} +gamemode ${GAMEMODE} +map ${GAMEMAP}
 fi
