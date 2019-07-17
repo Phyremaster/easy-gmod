@@ -168,5 +168,5 @@ All joking aside, though, if you have feedback or, even better, want to contribu
 This project uses `cm2network/steamcmd:root` as a base image ([GitHub](https://github.com/CM2Walki/steamcmd), [Docker Hub](https://hub.docker.com/r/cm2network/steamcmd)) and takes some inspiration from `zennoe/gmod-css-tf2:latest` ([GitHub](https://github.com/Zennoe/docker-gameservers), [Docker Hub](https://hub.docker.com/r/zennoe/gmod-css-tf2)). This project is not affiliated with Facepunch Studios or Valve. I had nothing to do with the creation of the Half Life games, the Counter Strike games, Garry's Mod, or SRCDS. I just built something around those things.
 
 ### Project pages
-- [GitHub](https://github.com/Phyremaster/easy-gmod-docker)
+- [GitHub](https://github.com/Phyremaster/easy-gmod)
 - [Docker Hub](https://hub.docker.com/r/phyremaster/easy-gmod)
