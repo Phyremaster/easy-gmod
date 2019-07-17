@@ -12,7 +12,8 @@ ENV GMODID=4020 \
 	MOUNTCFG=/home/steam/garrysmod/garrysmod/cfg/mount.cfg
 
 # Environment variables
-ENV HOSTNAME="A Garry's Mod Server" \
+ENV GMODPORT=27015 \
+    HOSTNAME="A Garry's Mod Server" \
 	MAXPLAYERS=20 \
 	GAMEMODE=sandbox \
 	GAMEMAP=gm_flatgrass \

@@ -47,9 +47,9 @@ Command line options are letters preceded by a single hyphen (like this: `-o`) o
 
 Your computer is identified in computer networks by its IP address, a series of number separated by periods (or, in IPv6, colons). A port is an additional number, ranging from 0 to 65535 (which may seem like a random number, but it's significant because it's one less than 2^16, making it the highest number that can be represented by two bytes of binary data), which tells your computer which program to send the information that it receives to.
 
-Docker needs to know which port or ports on your computer it should connect the container to. To tell it this, you use the command line option `-p`. To specify the port used for Garry's Mod, the value of `-p` should be in the format `<port>:27015/udp` where you replace `<port>` with the number of the port that you want to use. Unless you are running multiple servers on one computer, you should probably set this to `27015`. In most cases, you will also need to port forward whatever port you chose in your router settings. This varies significantly between routers, so I'll just tell you to set both of the ports to whatever port you chose and set it to UDP, not TCP. You can Google the rest.
+Docker needs to know which port or ports on your computer it should connect the container to. To tell it this, you use the command line option `-p`. To specify the port used for Garry's Mod, the value of `-p` should be in the format `<port>:<port>/udp` where you replace `<port>` with the number of the port that you want to use. If you are using a port other than `27015` (which you probably shouldn't do unless you are running multiple servers on one computer), you must also specify the environment variable `GMODPORT`. I'll explain environment variables later, but for now, just use the command line option `-e` with its value in the format `GMODPORT=<port>`, once again replacing `<port>` with the number of the port that you're using. In most cases, you will also need to port forward whatever port you chose in your router settings. This varies significantly between routers, so I'll just tell you to set both of the ports to whatever port you chose and set it to UDP, not TCP. You can Google the rest.
 
-If you intend to use RCON, you have to do pretty much the same thing again, except this time you use TCP instead of UDP (in both the command line option's value and the router port forwarding settings). You should probably skip the port forwarding for RCON, though; doing so is a security risk, so only do it if you know you will need to access RCON from outside of your local network.
+If you intend to use RCON, you have to do pretty much the same thing again, except this time you use TCP instead of UDP (in both the command line option's value and the router port forwarding settings). You do not need to set the `GMODPORT` environment variable again. You should probably skip the port forwarding for RCON, though; doing so is a security risk, so only do it if you know you will need to access RCON from outside of your local network.
 
 You have to include the `-p` command line option for Garry's Mod, even if you're using the default `27015`. If you don't, it won't work. Period.
 
@@ -146,6 +146,7 @@ All joking aside, though, if you have feedback or, even better, want to contribu
 - `/home/steam/tf2` - The Team Fortress 2 content files
 
 ### Environment variables (change `server.cfg` or SRCDS launch command)
+- `GMODPORT` - `-port` - the port that the server uses (internally) - `27015`
 - `HOSTNAME` - `hostname` - the name of the server, seen in the server list - `"A Garry's Mod Server"`
 - `MAXPLAYERS` - `-maxplayers` - the maximum number of concurrent players allowed - `20`
 - `GAMEMODE` - `+gamemode` - the gamemode to host - `sandbox`
