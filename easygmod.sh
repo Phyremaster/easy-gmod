@@ -134,7 +134,7 @@ then
             -autoupdate \
             -steam_dir ${STEAMCMDDIR} \
             -steamcmd_script /home/steam/autoupdatescript.txt \
-            -port ${GMODPORT} \
+            -port 27015 \
             -maxplayers ${MAXPLAYERS} \
             -game garrysmod \
             +gamemode ${GAMEMODE} \
@@ -144,7 +144,7 @@ then
             -autoupdate \
             -steam_dir ${STEAMCMDDIR} \
             -steamcmd_script /home/steam/autoupdatescript.txt \
-            -port ${GMODPORT} \
+            -port 27015 \
             -maxplayers ${MAXPLAYERS} \
             -game garrysmod \
             +sv_setsteamaccount ${LOGINTOKEN} \
@@ -158,7 +158,7 @@ else
             -autoupdate \
             -steam_dir ${STEAMCMDDIR} \
             -steamcmd_script /home/steam/autoupdatescript.txt \
-            -port ${GMODPORT} \
+            -port 27015 \
             -maxplayers ${MAXPLAYERS} \
             -game garrysmod \
             +host_workshop_collection ${WORKSHOPID} \
@@ -169,7 +169,7 @@ else
             -autoupdate \
             -steam_dir ${STEAMCMDDIR} \
             -steamcmd_script /home/steam/autoupdatescript.txt \
-            -port ${GMODPORT} \
+            -port 27015 \
             -maxplayers ${MAXPLAYERS} \
             -game garrysmod \
             +sv_setsteamaccount ${LOGINTOKEN} \

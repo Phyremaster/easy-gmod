@@ -12,8 +12,7 @@ ENV GMODID=4020 \
 	MOUNTCFG=/home/steam/garrysmod/garrysmod/cfg/mount.cfg
 
 # Environment variables
-ENV GMODPORT=27015 \
-    HOSTNAME="A Garry's Mod Server" \
+ENV HOSTNAME="A Garry's Mod Server" \
 	MAXPLAYERS=20 \
 	GAMEMODE=sandbox \
 	GAMEMAP=gm_flatgrass \
@@ -37,5 +36,5 @@ USER steam
 CMD ./easygmod.sh
 
 # Set up container
-EXPOSE 27015/tcp 27015/udp
+EXPOSE 27015/udp 27005/udp
 VOLUME ${GMODDIR} ${CSSDIR} ${TF2DIR}
