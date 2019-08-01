@@ -114,6 +114,14 @@ then
 fi
 
 # Start the server
+if [ -z "${GMODPORT}" ]
+then
+    GMODPORT=27015
+fi
+if [ -z "${CLIENTPORT}" ]
+then
+    CLIENTPORT=27005
+fi
 if [ -z "${MAXPLAYERS}" ]
 then
     MAXPLAYERS=20
@@ -134,7 +142,8 @@ then
             -autoupdate \
             -steam_dir ${STEAMCMDDIR} \
             -steamcmd_script /home/steam/autoupdatescript.txt \
-            -port 27015 \
+            -port ${GMODPORT} \
+            -clientport ${CLIENTPORT} \
             -maxplayers ${MAXPLAYERS} \
             -game garrysmod \
             +gamemode ${GAMEMODE} \
@@ -144,7 +153,8 @@ then
             -autoupdate \
             -steam_dir ${STEAMCMDDIR} \
             -steamcmd_script /home/steam/autoupdatescript.txt \
-            -port 27015 \
+            -port ${GMODPORT} \
+            -clientport ${CLIENTPORT} \
             -maxplayers ${MAXPLAYERS} \
             -game garrysmod \
             +sv_setsteamaccount ${LOGINTOKEN} \
@@ -158,7 +168,8 @@ else
             -autoupdate \
             -steam_dir ${STEAMCMDDIR} \
             -steamcmd_script /home/steam/autoupdatescript.txt \
-            -port 27015 \
+            -port ${GMODPORT} \
+            -clientport ${CLIENTPORT} \
             -maxplayers ${MAXPLAYERS} \
             -game garrysmod \
             +host_workshop_collection ${WORKSHOPID} \
@@ -169,7 +180,8 @@ else
             -autoupdate \
             -steam_dir ${STEAMCMDDIR} \
             -steamcmd_script /home/steam/autoupdatescript.txt \
-            -port 27015 \
+            -port ${GMODPORT} \
+            -clientport ${CLIENTPORT} \
             -maxplayers ${MAXPLAYERS} \
             -game garrysmod \
             +sv_setsteamaccount ${LOGINTOKEN} \

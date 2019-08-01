@@ -13,6 +13,8 @@ ENV GMODID=4020 \
 
 # Environment variables
 ENV HOSTNAME="A Garry's Mod Server" \
+    GMODPORT=27015 \
+    CLIENTPORT=27005 \
 	MAXPLAYERS=20 \
 	GAMEMODE=sandbox \
 	GAMEMAP=gm_flatgrass \
