@@ -42,18 +42,27 @@ In this version of the command, you replace the `<options>` part with a list of 
 
 Command line options are letters preceded by a single hyphen (like this: `-o`) or strings of text preceded by two hyphens (like this: `--option`). Many command line options, including the vast majority of the ones that I will show you here, are followed by some sort of value (like this: `-o value` or this: `--option value`). When using multiple command line options, you must separate them with spaces (like this: `-o value --options value`). You must also separate these command line options from other parts of the command with spaces (like this: `command -o value file`).
 
+### Environment variables
+Many of the following settings for the server are set using environment variables, so I should probably just explain environment variables now. For our purposes, environment variables are additional settings that I created to make your life easier. All environment variables are specified through a `-e` command line option with a value in the format `<name>=<value>`. `<name>` is to be replaced with the name of the environment variable (which must be entered exactly as I give it to you and will always be in all capital letters), and `<value>` is to be replaced with whatever you are setting the environment variable to. Got it? Good, now we can continue with the settings.
+
+Oh, and one final note: you should **never use a backtick** (this little guy: `` ` ``) **in the value of one of these environment variables**. If you do, it will ruin everything. Due to the way the programming for this image works, there must be one ASCII character that cannot be used. I chose the backtick, because I believe it is the symbol that you will need the least.
+
 ### Setting ports
 *What are "ports"?*
 
 Your computer is identified in computer networks by its IP address, a series of number separated by periods (or, in IPv6, colons). A port is an additional number, ranging from 0 to 65535 (which may seem like a random number, but it's significant because it's one less than 2^16, making it the highest number that can be represented by two bytes of binary data), which tells your computer which program to send the information that it receives to.
 
-Docker needs to know which port or ports on your computer it should connect the container to. To tell it this, you use the command line option `-p`. To specify the port used for Garry's Mod, the value of `-p` should be in the format `<port>:27015/udp` where you replace `<port>` with the number of the port that you want to use (the default is `27015`, and you should probably stick with that unless you are planning on running multiple servers on one computer). In most cases, you will also need to port forward whatever port you chose in your router settings. This varies significantly between routers, so I'll just tell you to set both of the ports to whatever port you chose and set it to UDP, not TCP. You can Google the rest.
+Docker needs to know which port or ports on your computer it should connect the container to. To tell it this, you use the command line option `-p`. The value of the `-p` command line option should be in the format `<port>:<port>/<protocol>`. For the Garry's Mod server, you will need to replace `<port>` with the Garry's Mod server port (default is `27015`) and `<protocol>` with `udp`. If you want to use a port other than the default port (which I recommend against, unless you are running multiple server one computer, in which case you must set different ports for each server), you must set the environment variable `GMODPORT` to the port that you are using.
 
-If you intend to use RCON, you have to do pretty much the same thing again, except this time you use TCP instead of UDP (in both the command line option's value and the router port forwarding settings). You should probably skip the port forwarding for RCON, though; doing so is a security risk, so only do it if you know you will need to access RCON from outside of your local network.
+To prevent various bugs (mostly with the server list and running multiple servers), I recommend that you also configure the client port with another `-p` command line option. Replace `<port>` with the client port (default is `27015`) and `<protocol>` with `udp`. When using a port other than the default port (which is, again, not recommended when running only one server, but required for multiple servers), you need to set the environment variable `CLIENTPORT` to the port that you are using.
 
-To make your server appear on the multiplayer server list, you need to add yet another `-p` command line option with its value in the format `<port>:27005/udp`, this time replacing `<port>` with the number of a different port (the default is `27005`, and, again, you probably shouldn't change it unless you're running more than one server). You will have to port forward this port the same way that you port forwarded the first port.
+If you want to use RCON, you have to set yet another `-p` command line option. This time, `<port>` has to be replaced with the same port that you used for the Garry's Mod server (again, default is `27015`) and `<protocol>` must be replaced with `tcp`.
 
-You have to include the `-p` command line option for Garry's Mod, even if you're using the default `27015`. If you don't, it won't work. Period.
+You also need to port forward the port(s) that you are using, but this process varies quite a bit depending on your router and network, so instead of meticulously explaining the steps for every router in existence, I'm just going to tell you to go Google it.
+
+Go Google it.
+
+One last note: you have to include the `-p` command line option for Garry's Mod, even if you're using the default port, `27015`. If you don't, it won't work. Period.
 
 ### Storing the files
 Docker containers are virtualized. Because of this, you can't just navigate your way to their files on your computer. This also means that containers lose all of their files when they are stopped. For a Garry's Mod server, both of these things are problems.
@@ -77,13 +86,8 @@ Normally, when you enter the command to run this image, your command prompt or t
 
 Please note that, if you later find that you need to access the server console, you will probably need to use RCON to connect to the server console from the game.
 
-### Environment variables
-All of the following settings for the server are set using environment variables, so I should probably just explain environment variables now. For our purposes, environment variables are additional settings that I created to make your life easier. All environment variables are specified through a `-e` command line option with a value in the format `<name>=<value>`. `<name>` is to be replaced with the name of the environment variable (which must be entered exactly as I give it to you and will always be in all capital letters), and `<value>` is to be replaced with whatever you are setting the environment variable to. Got it? Good, now we can continue with the rest of the settings.
-
-Oh, and one final note: you should **never use a backtick** (this little guy: `` ` ``) **in the value of one of these environment variables**. If you do, it will ruin everything. Due to the way the programming for this image works, there must be one ASCII character that cannot be used. I chose the backtick, because I believe it is the symbol that you will need the least.
-
 ### Naming the server
-You can set the name of your server (as it will appear on the multiplayer server list) with the `HOSTNAME` environment variable. The value should, of course, be set to the name that you want your server to have. If your name contains spaces, put quotes before and after it (like this: `"Server Name"`). If not set, this will default to "A Garry's Mod Server".
+You can set the name of your server (as it will appear on the multiplayer server list) with the `HOSTNAME` environment variable. The value should, of course, be set to the name that you want your server to have. If your name contains spaces, put quotes before and after it (like this: `"Server Name"`). If not set, this will default to `"A Garry's Mod Server"`.
 
 ### Setting the player limit
 To set the maximum number of players who can connect to the server at the same time, use the `MAXPLAYERS` environment variable. The value should be set to the number of players that you want to allow to connect simultaneously (as a number, not spelled out). If not set, this will default to 20 players.
@@ -150,6 +154,8 @@ All joking aside, though, if you have feedback or, even better, want to contribu
 
 ### Environment variables (change `server.cfg` or SRCDS launch command)
 - `HOSTNAME` - `hostname` - the name of the server, seen in the server list - `"A Garry's Mod Server"`
+- `GMODPORT` - `-port` - the SRCDS (Garry's Mod server) port - `27015`
+- `CLIENTPORT` - `-clientport` - the SRCDS client port (for the server list) - `27005`
 - `MAXPLAYERS` - `-maxplayers` - the maximum number of concurrent players allowed - `20`
 - `GAMEMODE` - `+gamemode` - the gamemode to host - `sandbox`
 - `GAMEMAP` - `+map` - the map to host when the server starts - `gm_flatgrass`
