@@ -19,6 +19,7 @@ ENV HOSTNAME="A Garry's Mod Server" \
 	GAMEMODE=sandbox \
 	GAMEMAP=gm_flatgrass \
 	ALLTALK=1 \
+    VOICEICON=0 \
 	MAXFILESIZE=1024 \
 	WORKSHOPID="" \
 	DOWNLOADURL="" \

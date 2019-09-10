@@ -47,6 +47,15 @@ then
         echo "sv_alltalk ${ALLTALK}" >> ${SERVERCFG}
     fi
 fi
+if [ ! -z "${VOICEICON}" ]
+then
+    if grep -q 'mp_show_voice_icons' ${SERVERCFG}
+    then
+        sed -i 's`mp_show_voice_icons.*`mp_show_voice_icons '${VOICEICON}'`' ${SERVERCFG}
+    else
+        echo "mp_show_voice_icons ${VOICEICON}" >> ${SERVERCFG}
+    fi
+fi
 if [ ! -z "${MAXFILESIZE}" ]
 then
     if grep -q 'net_maxfilesize' ${SERVERCFG}

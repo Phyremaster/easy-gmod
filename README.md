@@ -101,6 +101,9 @@ To set the map that your server will start on, use the `GAMEMAP` environment var
 ### Talking between teams
 To allow players to talk to players on other teams, set the value of the `ALLTALK` environment variable to the number `1` (this is the default setting). If you want to prevent this, set it to the number `0`.
 
+### Displaying voice chat
+To show the default voice chat icon over players while they have their voice chat button pressed, set the value of the `VOICEICON` environment variable to the number `1`. To prevent this icon from ever appearing, set it to the number `0`. Since this icon tends to give away players who are hiding (usually on Prop Hunt servers), it is set to `0` by default.
+
 ### Setting the players' download limit
 You can prevent players from downloading any file from your server larger than a certain size with the `MAXFILESIZE` environment variable. Set the value of this environment variable to a number representing the size of the largest file you want to let players download in megabytes. If not set, this will default to `1024` (this is the number of megabytes in a gigabyte).
 
@@ -112,7 +115,7 @@ If, for whatever reason, your addon or addons cannot be found in the Steam Works
 ### Speeding up downloads
 If you have some content on your server that cannot be downloaded from Steam, it will normally take a very long time to download, because the Source Engine protocol does not handle file transfers very well. To fix this, you can use FastDL, which allows players to automatically download your server's content over HTTPS from a website. To use FastDL, you must have a website containing your server content **with the exact same file structure as your actual Garry's Mod server files**. To set up FastDL, set the value of the `DOWNLOADURL` environment variable to the full link (including the `https://` part) to the folder on your website that contains the contents of the `garrysmod` folder from the default Garry's Mod server file structure. You should probably put quotes around the link.
 
-**You should avoid putting any unnecessary files on your FastDL website.** Doing so will increase download times and could cause a huge security risk.
+**You should avoid putting any unnecessary files on your FastDL website.** Doing so will increase download times and could be a security risk, depending on which files are exposed.
 
 ### Adding a loading screen
 To give your server a custom loading screen, set the value of the `LOADINGURL` environment variable to the full link (including the `https://` part) to the webpage that will be your loading screen. You should probably put quotes around the link.
@@ -160,6 +163,7 @@ All joking aside, though, if you have feedback or, even better, want to contribu
 - `GAMEMODE` - `+gamemode` - the gamemode to host - `sandbox`
 - `GAMEMAP` - `+map` - the map to host when the server starts - `gm_flatgrass`
 - `ALLTALK` - `sv_alltalk` - players can voice chat between teams - `1` (enabled)
+- `VOICEICON` - `mp_show_voice_icons` - show overhead voice chat icons - `0` (disabled)
 - `MAXFILESIZE` - `net_maxfilesize` - the maximum size of file a player can download (in MB) - `1024`
 - `WORKSHOPID` - `+host_workshop_collection` - the Workshop ID of the addon collection to host
 - `DOWNLOADURL` - `sv_downloadurl`, `sv_allowdownload`, `sv_allowupload` - the link to the FastDL website
