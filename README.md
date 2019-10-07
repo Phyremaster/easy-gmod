@@ -7,7 +7,7 @@ To use this image, you simply run it with the settings that you want (explained 
 
 ## How to use this
 Do you...
-- already know what you're doing and just want to know what the settings are? Scroll down to the **References** section!
+- already know what you're doing and just want to know what the settings are? Scroll down to the **Reference** section!
 - have no clue what you're doing but can't stand the idea of reading? I'm working on a video tutorial.
 - have no clue what you're doing and prefer reading a guide? Read on, my friend.
 
@@ -21,7 +21,7 @@ docker run -p 27015:27015/udp phyremaster/easy-gmod
 
 *But... But... How do I run this command?*
 
-**Sigh...** On Windows press `Windows Key` + `R`, type `cmd`, then press `Enter`. Type the command and press `Enter`. Ta-daa. If that doesn't work, try pressing `Ctrl` + `Shift` + `Enter` instead of just `Enter` after typing `cmd`, then click `Yes`. On Linux, open the terminal (try the shortcut `Ctrl` + `T`), type the command, and press `Enter`. If that doesn't work, type the command again, but put `sudo ` before the rest of the command and enter your password if necessary.
+**Sigh...** On Windows press `Windows Key` + `R`, type `cmd`, then press `Enter`. Type the command and press `Enter`. Ta-daa. If that doesn't work, try pressing `Ctrl` + `Shift` + `Enter` instead of just `Enter` after typing `cmd`, then click "Yes". On Linux, open the terminal (try the shortcut `Ctrl` + `T`), type the command, and press `Enter`. If that doesn't work, type the command again, but put `sudo ` before the rest of the command and enter your password if necessary.
 
 Assuming you didn't screw up, you should now have a functional Garry's Mod server. It will take a while to start, especially the first time that you start it. This is because this image does not come with the Garry's Mod server, Counter Strike: Source content, and Team Fortress 2 content preinstalled. Instead, the container validates and either installs or updates the server every time that it is started. While to a casual user that may seem like a really stupid way to have this image work, trust me, there are plenty of really good reasons why I made the image this way from a development perspective. It makes updating smoother, code simpler, images smaller, build times quicker, and programming easier. It might even help me in a legal situation, should one arise.
 
@@ -84,7 +84,8 @@ If you want the Garry's Mod server to start when your computer starts, just make
 ### Running in the background
 Normally, when you enter the command to run this image, your command prompt or terminal will turn into the server console. If you don't want this and instead want the server to just run silently in the background, just add the `-d` command line option, no value necessary.
 
-Please note that, if you later find that you need to access the server console, you will probably need to use RCON to connect to the server console from the game.
+### Getting the command line back
+If you want the server to run silently in the background *most* of the time, but still have access to the server console *sometimes*, you can add the `-t` and `-i` command line options (which can actually be set together, as `-ti` or `-it`) in addition to the `-d` command line option. `-d` will still work as explained above, but you can now access the server console any time that you want to with the `docker attach` command.
 
 ### Naming the server
 You can set the name of your server (as it will appear on the multiplayer server list) with the `HOSTNAME` environment variable. The value should, of course, be set to the name that you want your server to have. If your name contains spaces, put quotes before and after it (like this: `"Server Name"`). If not set, this will default to `"A Garry's Mod Server"`.
@@ -136,7 +137,7 @@ If your Steam account is elligible, you can [create a Steam Game Server Account]
 
 In that case, you will have to manually edit the configuration files. Don't worry about the image overwriting your settings; the script only edits the lines of the configuration files relevant to the environment variables that have been set. To prevent default settings from overwriting your manually-added, custom settings, just set the value or values of the relevant environment variable or variables to the empty string (a pair of quotes with nothing between them, like this: `""`).
 
-Additionally, please note that, to prevent removing manually-added custom settings, **changing an environment variable to the empty string will not remove the relevant part of the configuration files**.
+Additionally, please note that, to prevent removing manually-added custom settings, **changing an environment variable to the empty string will not remove the relevant part of the configuration files.**
 
 *Wow, I can't believe that you didn't have an environment variable for* `<insert obscure setting>`. *This image sucks.*
   
