@@ -77,7 +77,7 @@ If you don't specify any `-v` command line options, Docker will automatically as
 Giving the container a name may help with managing the server later. To give the container a name (and prevent it from being given a randomly assigned two-word name instead), use the `--name` command line option with the name that you want as the value. The name cannot contain spaces or other special characters.
 
 ### Stayin' alive
-To make the container automatically restart any time that it stops (for example, due to a crash), include the command line option `--restart always`. If you manually stop the container (not just the Garry's Mod server), this behavior will be overriden and the container will remain stopped until you start it or restart Docker.
+To make the container automatically restart any time that it crashes, include the command line option `--restart on-failure`. Stopping the server from its console will stop the container, and it is recommended that you do that instead of stopping the container via Docker.
 
 If you want the Garry's Mod server to start when your computer starts, just make sure that Docker is configured to start when your computer starts. When Docker starts, it will start all of your containers by default.
 
